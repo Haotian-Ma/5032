@@ -121,15 +121,21 @@
       <!-- Activity 13: Toggle the message visibility when the button is clicked. -->
       <!-- TODO: CODE TO TOGGLE MESSAGE VISIBILITY HERE. Hint: Use the v-if directive. -->
       <button @click="showMessage = !showMessage">Toggle Message</button>
-<p v-if="showMessage" class="message success">
+      <p v-if="showMessage" class="message success">
   ✨ You're a Vue superstar! ✨
-</p>
-<p v-else class="message">Click the button to see a message.</p>
+      </p>
+      <p v-else class="message">Click the button to see a message.</p>
     </section>
 
     <section class="lab-section">
       <h2>Attribute, Class and Style Binding with <code>v-bind</code></h2>
       <p>Highlighting Specific Authors:</p>
+      <ul>
+      <li v-for="author in authors" :key="author.name"
+          :class="{ highlighted: author.name === 'George Orwell' }">
+        {{ author.name }}
+      </li>
+    </ul>
 
     </section>
   </div>
