@@ -132,7 +132,8 @@
       <p>Highlighting Specific Authors:</p>
       <ul>
       <li v-for="author in authors" :key="author.name"
-          :class="{ highlighted: author.name === 'George Orwell' }">
+          :class="{ 'highlight': author.name === authorToHighlight }"
+          :style="author.name === authorToHighlight ? Style : {}">
         {{ author.name }}
       </li>
     </ul>
@@ -144,6 +145,12 @@
 <script setup>
 import { ref, computed } from "vue"
 
+const authorToHighlight = "George Orwell";
+const Style = ref({
+  color: 'black',
+  backgroundColor: '#4CAF50', // Green background for highlight
+
+});
 // Activity 1: Import JSON files (authors.json and bookstores.json)
 // TODO: CODE TO IMPORT JSON FILES HERE
 import authors from "../assets/json/authors.json"
