@@ -27,12 +27,12 @@
                             <p>Australian Resident?</p>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="yes" value="yes" 
-                                v-model="formData.resident" @blur="validateResident(true)">
+                                v-model="formData.isAustralian" @blur="validateResident(true)">
                                 <label class="form-check-label" for="yes">Yes</label>
                             </div>
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" id="no" value="no" 
-                                v-model="formData.resident" @blur="validateResident(true)">
+                                v-model="formData.isAustralian" @blur="validateResident(true)">
                                 <label class="form-check-label" for="no">No</label>
                             </div>
                             <p v-if="errors.resident" style="color: red;">{{ errors.resident }}</p>
@@ -69,7 +69,17 @@
             </div>
         </div>
         <div class="row mt-5" v-if="submittedCards.length">
-   <div class="d-flex flex-wrap justify-content-start">
+            <!-- <div class="card"> -->
+        <DataTable :value="submittedCards" tableStyle="min-width: 50rem">
+            <Column field="username" header="Username"></Column>
+            <Column field="password" header="Password"></Column>
+            <Column field="isAustralian" header="isAustralian"></Column>
+            
+            <Column field="gender" header="Gender"></Column>
+            <Column field="reason" header="Reason"></Column>
+        </DataTable>
+    </div>
+   <!-- <div class="d-flex flex-wrap justify-content-start">
       <div v-for="(card, index) in submittedCards" :key="index" class="card m-2" style="width: 18rem;">
          <div class="card-header">
             User Information
@@ -83,18 +93,19 @@
          </ul>
       </div>
    </div>
-</div>
+</div> -->
     </div>
     
 </template>
 
 <script setup>
 import { ref } from 'vue';
-  
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';  
   const formData = ref({
       username: '',
       password: '',
-      isAustralian: false,
+      isAustralian: '',
       reason: '',
       gender: ''
   });
@@ -171,7 +182,7 @@ const validateReason = (blur) => {
 };
 
 const validateresident = (blur) => {
-    if (!formData. value. resident) {
+    if (!formData. value. isAustralian) {
         if (blur) errors. value.resident = "Resident must be selected.";
     } else {
         errors.value. resident = null;
