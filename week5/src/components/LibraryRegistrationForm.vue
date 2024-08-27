@@ -17,7 +17,9 @@ const submittedCards = ref([])
 const submitForm = () => {
   validateName(true)
   validatePassword(true)
-  if (!errors.value.username && !errors.value.password) {
+  validateConfirmPassword(true)
+  validateReason(true)
+  if (!errors.value.username && !errors.value.password && !errors.value.confirmPassword && !errors.value.reason) {
     submittedCards.value.push({ ...formData.value })
     clearForm()
   }
@@ -84,6 +86,41 @@ const validatePassword = (blur) => {
     errors.value.confirmPassword = null
   }
 }
+
+// const validateReason = (blur) => {
+//   if (formData.value.reason.length < 10) {
+//     if (blur) errors.value.reason = 'Reason must be at least 10 characters.'
+//   } else {
+//     errors.value.reason= null
+//   }
+// }
+
+// const validateReasonforJoining = (blur) => {
+//   if (formData.value.reason.includes('friend')) {
+//     if (blur) ifReasonContainsFriend.value = true;
+//   } else {
+//     ifReasonContainsFriend.value = false;
+//   }
+// }
+
+// const ifReasonContainsFriend = ref(false)
+const validateOnBlur = () => {
+      errors.value.reason = formData.value.reason.length < 10
+        ? 'Reason must be at least 10 characters.'
+        : null;
+      updateFriendMessage();
+    }
+
+    const validateOnInput = () => {
+      updateFriendMessage();
+    }
+
+    const updateFriendMessage = () => {
+      messages.value.friendMessage = formData.value.reason.includes('friend')
+        ? 'Great to have a friend'
+        : null;
+    }
+const messages = ref({ friendMessage: null })
 </script>
 
 <template>
@@ -172,7 +209,11 @@ const validatePassword = (blur) => {
               id="reason"
               rows="3"
               v-model="formData.reason"
+      @blur="validateOnBlur"
+      @input="validateOnInput"
             ></textarea>
+            <div v-if="errors.reason" class="text-danger">{{ errors.reason }}</div>
+            <div v-if="messages.friendMessage" class="text-success">{{ messages.friendMessage }}</div>
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -251,4 +292,11 @@ const validatePassword = (blur) => {
 .list-group-item {
   padding: 10px;
 }
+.text-danger {
+  color: red;
+}
+.text-success {
+  color: green;
+}
+
 </style>
