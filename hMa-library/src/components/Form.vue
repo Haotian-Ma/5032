@@ -118,7 +118,6 @@ import Column from 'primevue/column';
     validateGender(true);
     validateReason(true);
     validateresident(true)
-
     if
     (!errors. value. username && !errors. value. password && !errors.value.gender && !errors.value.reason && !errors.value.resident) {
     submittedCards. value. push( { ... formData.value }) ;
