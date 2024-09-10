@@ -13,14 +13,20 @@
   // No script needed for now
   import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-
+import { getAuth, signOut } from "firebase/auth"
 const router = useRouter();
 
-const logout = () => {
-  localStorage.removeItem('isAuthenticated');
-  router.push({ name: 'Login' });
-
-};
+const logout = async () => {
+  const auth = getAuth()
+  try {
+    await signOut(auth)
+    alert("Logged out successfully")
+    console.log('Current User:', auth.currentUser)
+    router.push("/FireLogin") // Redirect to login page after logout
+  } catch (error) {
+    console.error("Error logging out:", error)
+  }
+}
   </script>
   
   <style>

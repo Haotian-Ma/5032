@@ -21,7 +21,7 @@ const routes = [
     path: '/about',
     name: 'About',
     component: AboutView,
-    meta: { requiresAuth: true }
+
   },
   {
     path: '/login',
