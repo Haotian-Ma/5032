@@ -6,7 +6,7 @@ import FirebaseSigninView from '../views/FirebaseSigninView.vue'
 import FirebaseRegisterView from '../views/FirebaseRegisterView.vue'
 import UserDashboard from '@/views/UserDashboard.vue'
 import AdminDashboard from '@/views/AdminDashboard.vue'
-
+import AddBookView from '@/views/AddBookView.vue'
 import { getAuth } from 'firebase/auth'
 import { getFirestore, doc, getDoc } from 'firebase/firestore'
 
@@ -49,7 +49,12 @@ const routes = [
     name: 'AdminDashboard',
     component: AdminDashboard,
     meta: { requiresAuth: true, role: 'admin' }
-  }
+  },
+  {
+    path: '/addbook',
+    name: 'AddBook',
+    component: AddBookView
+  },
 ]
 
 
