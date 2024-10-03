@@ -17,7 +17,6 @@ admin.initializeApp();
 exports.addBook = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
     try {
-
       const {isbn, name} = req.body;
       const capitalizedBookName = name.toUpperCase();
 
