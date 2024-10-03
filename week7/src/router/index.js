@@ -9,9 +9,14 @@ import AdminDashboard from '@/views/AdminDashboard.vue'
 import AddBookView from '@/views/AddBookView.vue'
 import { getAuth } from 'firebase/auth'
 import { getFirestore, doc, getDoc } from 'firebase/firestore'
-
+import GetBookCountView from '@/views/GetBookCountView.vue'
 
 const routes = [
+  {
+    path: '/GetBookCount',
+    name: 'GetBookCount',
+    component: GetBookCountView
+  },
   {
     path: '/',
     name: 'Home',
