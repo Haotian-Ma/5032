@@ -14,6 +14,33 @@ const cors = require("cors")({origin: true});
 
 admin.initializeApp();
 
+exports.getAllBooks = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    try {
+      const booksRef = admin.firestore().collection("books");
+      const snapshot = await booksRef.get();
+
+      if (snapshot.empty) {
+        res.status(404).send("No books found");
+        return;
+      }
+
+      const books = [];
+      snapshot.forEach((doc) => {
+        books.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+
+      res.status(200).json(books);
+    } catch (error) {
+      console.error("Error getting books:", error);
+      res.status(500).send("Error getting books");
+    }
+  });
+});
+
 exports.addBook = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
     try {
